@@ -1,7 +1,6 @@
 using System;
 
-// To exceed requirements I presented the user with a list of available scriptures
-// and gave him the option of choosing any scripture based on its umber in the list.
+// What I did to exceed requirements: I presented the user with a list of available scriptures and gave them the option of choosing any scripture based on its number in the list.
 
 class Program
 {
