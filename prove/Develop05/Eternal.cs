@@ -1,15 +1,14 @@
 using System;
 
-public class Simple : Goals
+public class Eternal : Goals 
 {
     private string _goal;
     private string _description;
-  
-    bool _isComplete = false;
+    
 
-    public string StartSimpleGoals() {
+    public string StartEternalGoals() {
         Questions();
-        return CreateSentence(_goal, _description, _isComplete);
+        return CreateSentence(_goal, _description, isComplete:false);
     }
     protected override void Questions() {
         Console.Write("What is the name of you goal? ");
@@ -22,10 +21,9 @@ public class Simple : Goals
         string strPoints = Console.ReadLine();
         _points = int.Parse(strPoints);
     }
-
-
+    
     public override string CreateFileStr()
     {
-        return $"SimpleGoal:{_goal}<>{_description}<>{_points}<>{_isComplete}";
+        return $"EternalGoal:{_goal}<>{_description}<>{_points}";
     }
 }
