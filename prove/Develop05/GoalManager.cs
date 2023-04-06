@@ -10,6 +10,7 @@ public class GoalManager
         int index = 1;
 
         if(goalsList.Count() > 0) {
+
             foreach(Goal goal in goalsList) {
                 Console.WriteLine($"    {index}. {goal.GetGoalName()}");
                 index++;
@@ -23,41 +24,6 @@ public class GoalManager
 -- You do not have any events available to record --");
             return false;
         }
-    }
-
-    public int RecordEvent(List<Goal> goalsList, string strIndex) {
-        int index = int.Parse(strIndex) - 1;
-        Goal goal = goalsList[index];
-        string goalType = goal.GetGoalType();
-
-        int points = 0;
-
-        if(goalType == "SimpleGoal") {
-            goal.SetIsComplete(true);
-            points = goal.GetPoints();
-        }
-        else if(goalType == "EternalGoal") {
-            points = goal.GetPoints();
-        }
-        else if(goalType == "ChecklistGoal") {
-            goal.SetTimesCompleted(1);
-            int timesToComplete = goal.GetTimesToComplete();
-            int timesCompleted = goal.GetTimesCompleted();
-            int bonusPoints = goal.GetBonusPoints();
-
-            if(timesCompleted % timesToComplete == 0) {
-                points = bonusPoints;
-                points += goal.GetPoints();
-                goal.SetIsComplete(true);
-                Console.WriteLine($"Congratulations!! You get a bonus of {bonusPoints} points");
-            }
-            else {
-                points = goal.GetPoints();
-            }
-
-        }
-
-        return points;
     }
 
     public void ListGoals(List<Goal> goalsList) {
@@ -77,12 +43,15 @@ public class GoalManager
         }
     }
 
-    public void SaveToFile(List<Goal> goalsList, int totalPoints, string filename) {  
+    public void SaveToFile(List<Goal> goalsList, int totalPoints, string filename) { 
+
         DateTime date = DateTime.Now;
+
         using (StreamWriter outputFile = new StreamWriter(filename)) 
             {   
                 outputFile.WriteLine($"Last modified: {date}");
                 outputFile.WriteLine(totalPoints.ToString());
+
                 foreach (Goal goal in goalsList) {
                     outputFile.WriteLine(goal.AddToFileList());
                 }
@@ -92,7 +61,9 @@ public class GoalManager
     }
 
     public int LoadFromFile(List<Goal> goalsList, string filename) {
+
         goalsList.Clear();
+
         string[] lines = File.ReadAllLines(filename);
 
         string strTotalPoints = lines[1];
@@ -133,6 +104,7 @@ public class GoalManager
             }
 
             else if(goalType == "ChecklistGoal") {
+
                 string strBonusPoints = valueParts[3]; int intBonusPoints = int.Parse(strBonusPoints);
                 string strTimesToComplete = valueParts[4]; int intTimesToComplete = int.Parse(strTimesToComplete);
                 string strTimesCompleted = valueParts[5]; int intTimesCompleted = int.Parse(strTimesCompleted);
